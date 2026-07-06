@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI-Assisted Power BI Development — Process Flow</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg:#0b0f14;
+    --box:#11161d;
+    --box-border:#262f3a;
+    --purple:#8b7cf6;
+    --purple-soft:rgba(139,124,246,0.08);
+    --blue:#5aa9e6;
+    --text:#eef2f6;
+    --muted:#7c8794;
+    --line:#3a4453;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--bg);}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--text);
+    padding:40px 20px 60px;
+  }
+  .wrap{max-width:1300px;margin:0 auto;}
+  header{margin-bottom:8px;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blue);
+    margin-bottom:10px;
+  }
+  h1{
+    font-size:22px;
+    font-weight:700;
+    margin:0 0 6px;
+    letter-spacing:-0.01em;
+  }
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 30px;}
+
+  .stage{
+    position:relative;
+    width:100%;
+    overflow-x:auto;
+  }
+  svg{display:block;width:100%;height:auto;min-width:1100px;}
+
+  .mono{font-family:'JetBrains Mono',monospace;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Process flow</div>
+    <h1>How a change gets from your prompt into Power BI Desktop</h1>
+    <p class="sub">Left to right: you ask for something in plain language, VS Code's AI layer figures out what to do, MCP tools carry the change through, and it lands live in Power BI Desktop.</p>
+  </header>
+
+  <div class="stage">
+<svg viewBox="0 0 1300 520" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5c6774"></path>
+    </marker>
+  </defs>
+
+  <!-- ===== Connectors ===== -->
+  <!-- Dev -> VS Code -->
+  <path d="M 195 235 L 275 235" stroke="#3a4453" stroke-width="1.6" fill="none" marker-end="url(#arrow)"></path>
+  <text x="235" y="200" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11.5" fill="#9aa4b0">Natural</text>
+  <text x="235" y="215" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11.5" fill="#9aa4b0">language ask</text>
+
+  <!-- VS Code -> MCP server (top) -->
+  <path d="M 585 175 C 640 175, 650 140, 700 140" stroke="#3a4453" stroke-width="1.6" fill="none" marker-end="url(#arrow)"></path>
+  <!-- VS Code -> Desktop bridge (bottom) -->
+  <path d="M 585 300 C 640 300, 650 340, 700 340" stroke="#3a4453" stroke-width="1.6" fill="none" marker-end="url(#arrow)"></path>
+  <text x="648" y="120" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11.5" fill="#9aa4b0">MCP Protocol</text>
+  <text x="648" y="382" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11.5" fill="#9aa4b0">Local bridge</text>
+  <text x="648" y="396" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11.5" fill="#9aa4b0">connection</text>
+
+  <!-- MCP server -> PBI Desktop -->
+  <path d="M 1000 140 C 1055 140, 1055 200, 1080 235" stroke="#3a4453" stroke-width="1.6" fill="none" marker-end="url(#arrow)"></path>
+  <!-- Desktop bridge -> PBI Desktop -->
+  <path d="M 1000 340 C 1055 340, 1055 270, 1080 245" stroke="#3a4453" stroke-width="1.6" fill="none" marker-end="url(#arrow)"></path>
+  <text x="1048" y="185" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#9aa4b0">Model changes</text>
+  <text x="1048" y="198" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#9aa4b0">(TMDL / DAX)</text>
+  <text x="1048" y="300" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#9aa4b0">Report edits</text>
+  <text x="1048" y="313" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#9aa4b0">(pages / visuals)</text>
+
+  <!-- ===== Box 1: PBI Developer ===== -->
+  <g>
+    <rect x="20" y="165" width="175" height="140" rx="14" fill="#11161d" stroke="#262f3a" stroke-width="1.4"></rect>
+    <circle cx="107" cy="215" r="20" fill="none" stroke="#eef2f6" stroke-width="2"></circle>
+    <path d="M 92 250 a 15 14 0 0 1 30 0" fill="none" stroke="#eef2f6" stroke-width="2"></path>
+    <text x="107" y="285" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12.5" fill="#eef2f6" font-weight="600">Power BI</text>
+    <text x="107" y="300" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12.5" fill="#eef2f6" font-weight="600">Developer</text>
+  </g>
+
+  <!-- ===== Box 2: VS Code container (purple, like AI Applications) ===== -->
+  <g>
+    <rect x="280" y="95" width="305" height="285" rx="16" fill="rgba(139,124,246,0.06)" stroke="#8b7cf6" stroke-width="1.6"></rect>
+
+    <!-- VS Code icon -->
+    <g transform="translate(300, 104) scale(0.021)">
+      <path d="M 962.6 111.4 L 762.1 20.9 C 738.8 10.3 711.3 15.2 693 33.4 L 273.9 416.8 L 92.6 279.1 C 76.9 267.2 55.2 268.2 40.6 281.5 L 5.4 313.7 C -12.1 329.8 -12.1 357.6 5.4 373.7 L 165.1 519.9 L 5.4 666.1 C -12.1 682.2 -12.1 710 5.4 726.1 L 40.6 758.3 C 55.2 771.6 76.9 772.6 92.6 760.7 L 273.9 623 L 693 1006.4 C 711.3 1024.6 738.8 1029.5 762.1 1018.9 L 962.6 928.4 C 984.6 918.5 998.8 896.6 998.8 872.5 L 998.8 167.3 C 998.8 143.2 984.6 121.3 962.6 111.4 Z M 762.1 792.7 L 407 519.9 L 762.1 247.1 L 762.1 792.7 Z" fill="#3fa1e8"></path>
+    </g>
+    <text x="345" y="128" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#eef2f6">VS Code</text>
+    <text x="345" y="146" font-family="JetBrains Mono, monospace" font-size="11" fill="#9aa4b0">editor + terminal</text>
+
+    <!-- sub box: Copilot CLI -->
+    <rect x="300" y="165" width="265" height="60" rx="10" fill="#171d26" stroke="#2a323d" stroke-width="1.2"></rect>
+    <circle cx="325" cy="195" r="8" fill="none" stroke="#f0a83c" stroke-width="1.6"></circle>
+    <text x="325" y="199" text-anchor="middle" font-size="10" fill="#f0a83c">✦</text>
+    <text x="345" y="191" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#eef2f6">GitHub Copilot CLI</text>
+    <text x="345" y="206" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#9aa4b0">agent · plans &amp; calls tools</text>
+
+    <!-- sub box: LLM -->
+    <rect x="300" y="235" width="265" height="60" rx="10" fill="#171d26" stroke="#2a323d" stroke-width="1.2"></rect>
+    <circle cx="325" cy="265" r="8" fill="none" stroke="#5aa9e6" stroke-width="1.6"></circle>
+    <text x="325" y="269" text-anchor="middle" font-size="9" fill="#5aa9e6">◐</text>
+    <text x="345" y="261" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#eef2f6">LLM</text>
+    <text x="345" y="276" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#9aa4b0">reasons over your request</text>
+
+    <text x="305" y="360" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#7c8794">Project files: TMDL · DAX · report JSON</text>
+  </g>
+
+  <!-- ===== Box 3a: Power BI MCP Server ===== -->
+  <g>
+    <rect x="700" y="80" width="300" height="120" rx="14" fill="#11161d" stroke="#262f3a" stroke-width="1.4"></rect>
+    <circle cx="725" cy="112" r="9" fill="none" stroke="#5aa9e6" stroke-width="1.6"></circle>
+    <text x="725" y="116" text-anchor="middle" font-size="10" fill="#5aa9e6">⚙</text>
+    <text x="745" y="118" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#eef2f6">Power BI MCP Server</text>
+    <text x="725" y="140" font-family="JetBrains Mono, monospace" font-size="11" fill="#9aa4b0">powerbi-modeling-mcp</text>
+    <text x="725" y="158" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#7c8794">Semantic model tools:</text>
+    <text x="725" y="174" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#7c8794">read/write TMDL, run DAX, refresh</text>
+  </g>
+
+  <!-- ===== Box 3b: Power BI Desktop Bridge ===== -->
+  <g>
+    <rect x="700" y="280" width="300" height="120" rx="14" fill="#11161d" stroke="#262f3a" stroke-width="1.4"></rect>
+    <circle cx="725" cy="312" r="9" fill="none" stroke="#8b7cf6" stroke-width="1.6"></circle>
+    <text x="725" y="316" text-anchor="middle" font-size="10" fill="#8b7cf6">⇄</text>
+    <text x="745" y="318" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#eef2f6">Power BI Desktop Bridge</text>
+    <text x="725" y="340" font-family="JetBrains Mono, monospace" font-size="11" fill="#9aa4b0">Report Authoring layer</text>
+    <text x="725" y="358" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#7c8794">Opens a live channel to the running</text>
+    <text x="725" y="374" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#7c8794">.pbix for report page/visual edits</text>
+  </g>
+
+  <!-- ===== Box 4: Power BI Desktop (end product) ===== -->
+  <g>
+    <rect x="1080" y="60" width="200" height="160" rx="16" fill="#0f1a14" stroke="#3fae7a" stroke-width="1.6"></rect>
+    <rect x="1096" y="76" width="16" height="16" rx="3" fill="#3fae7a"></rect>
+    <text x="1120" y="89" font-family="Inter, sans-serif" font-size="13.5" font-weight="700" fill="#eef2f6">Power BI Desktop</text>
+    <text x="1096" y="108" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#7c8794">end product · live .pbix</text>
+
+    <rect x="1096" y="120" width="168" height="42" rx="8" fill="#12201a" stroke="#264534" stroke-width="1"></rect>
+    <text x="1108" y="138" font-family="Inter, sans-serif" font-size="11.5" font-weight="600" fill="#eef2f6">Semantic Model</text>
+    <text x="1108" y="153" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#7c8794">tables · measures · relationships</text>
+
+    <rect x="1096" y="170" width="168" height="42" rx="8" fill="#12201a" stroke="#264534" stroke-width="1"></rect>
+    <text x="1108" y="188" font-family="Inter, sans-serif" font-size="11.5" font-weight="600" fill="#eef2f6">Report Canvas</text>
+    <text x="1108" y="203" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#7c8794">pages · visuals · layout</text>
+  </g>
+
+  <!-- feedback loop: dev checks result -->
+  <path d="M 1180 235 C 1180 440, 300 460, 107 460 L 107 315" stroke="#3a4453" stroke-width="1.4" fill="none" stroke-dasharray="4 5" marker-end="url(#arrow)"></path>
+  <text x="640" y="450" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#6b7684">you check the result in Power BI Desktop, then refine your next prompt</text>
+
+</svg>
+  </div>
+</div>
+</body>
+</html>
